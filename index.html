@@ -34,13 +34,28 @@
   <button onclick="sendData()">Kirim Data ke Bot</button>
 
 <script>
+    // objek Telegram WebApp
     const tg = window.Telegram.WebApp;
 
-    function sendData() {
-      console.log("➡️ Tombol ditekan, kirim data...");
-      tg.sendData(JSON.stringify({ action: "order", item: "Roti Coklat", qty: 2 }));
-      tg.close(); // opsional: menutup mini app setelah kirim
+    // tampilkan username atau nama depan
+    const user = tg.initDataUnsafe?.user;
+    if (user) {
+      document.getElementById("user").innerText =
+        `Halo, ${user.username || user.first_name}!`;
+    } else {
+      document.getElementById("user").innerText =
+        "❌ Tidak bisa baca data user (dibuka bukan lewat tombol bot?)";
     }
+
+    // tombol -> kirim data
+    document.getElementById("sendBtn").addEventListener("click", () => {
+      console.log("➡️ Tombol ditekan, kirim data...");
+      tg.sendData(JSON.stringify({
+        action: "order",
+        item: "Roti Coklat",
+        qty: 2
+      }));
+    });
   </script>
 </body>
 </html>
