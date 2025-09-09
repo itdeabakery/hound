@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Mini App Demo</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 { color: #333; }
+    button {
+      font-size: 18px;
+      padding: 12px 20px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 8px;
+      background: #0088cc;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #006699;
+    }
+  </style>
+</head>
+<body>
+  <h1>🍞 Mini App Telegram</h1>
+  <p>Halo <span id="username"></span>! Selamat datang di Mini App pertama kamu.</p>
+  <button onclick="sendData()">Kirim Data ke Bot</button>
+
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.expand(); // biar full screen
+
+    // tampilkan nama user (kalau tersedia)
+    if (tg.initDataUnsafe?.user) {
+      document.getElementById("username").innerText = tg.initDataUnsafe.user.first_name;
+    }
+
+    // kirim data ke bot
+    function sendData() {
+      const data = { action: "order", item: "Roti Coklat", qty: 2 };
+      tg.sendData(JSON.stringify(data)); 
+      tg.close();
+    }
+  </script>
+</body>
+</html>
