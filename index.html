@@ -33,20 +33,13 @@
   <p>Halo <span id="username"></span>! Selamat datang di Mini App pertama kamu.</p>
   <button onclick="sendData()">Kirim Data ke Bot</button>
 
-  <script>
+<script>
     const tg = window.Telegram.WebApp;
-    tg.expand(); // biar full screen
 
-    // tampilkan nama user (kalau tersedia)
-    if (tg.initDataUnsafe?.user) {
-      document.getElementById("username").innerText = tg.initDataUnsafe.user.first_name;
-    }
-
-    // kirim data ke bot
     function sendData() {
       console.log("➡️ Tombol ditekan, kirim data...");
       tg.sendData(JSON.stringify({ action: "order", item: "Roti Coklat", qty: 2 }));
-      tg.close();
+      tg.close(); // opsional: menutup mini app setelah kirim
     }
   </script>
 </body>
